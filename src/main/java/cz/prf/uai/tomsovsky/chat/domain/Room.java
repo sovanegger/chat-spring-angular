@@ -25,7 +25,6 @@ public class Room implements IDomain {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	
 	@NotEmpty(message="Název místnosti nesmí být prázdný")
 	@NotNull(message="Název místnosti nesmí být prázdný")
 	@Column(nullable=false)
@@ -52,7 +51,7 @@ public class Room implements IDomain {
 	}
 	
 	/**
-	 * Adds domain instance into List collection. If List collection is not set, 
+	 * Adds a domain instance into List collection. If List collection is not set, 
 	 * than the method itself creates instance of ArrayList collection.
 	 * 
 	 * @param chatMessage ChatMessage instance which will be added to ArrayList collection.

@@ -35,13 +35,7 @@ public class RoomDaoHibernate extends DaoHibernate implements RoomDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Room> list(int limit) {
-		List<Room> rooms = null;
-		if (limit > 0) {
-			// TODO dodelat limit
-			rooms = currentSession().createCriteria(Room.class).list();
-		}
-		else
-			rooms = currentSession().createCriteria(Room.class).list();
-		return rooms;
+		return currentSession().createCriteria(Room.class).
+				setMaxResults(limit).list();
 	}
 }
