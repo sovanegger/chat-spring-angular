@@ -39,14 +39,14 @@ public class ChatWebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
-		registry.addResourceHandler("/views/**", "/css/**", "/img/**", "/js/**").addResourceLocations("/views/", "/css/", "/img/", "/js/").
+		registry.addResourceHandler("/clientside/**").addResourceLocations("/clientside/").
 					setCachePeriod(31556926);
 	}
 	
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/views/");
+		viewResolver.setPrefix("/clientside/");
 		viewResolver.setSuffix(".html");
 		return viewResolver;
 	}
