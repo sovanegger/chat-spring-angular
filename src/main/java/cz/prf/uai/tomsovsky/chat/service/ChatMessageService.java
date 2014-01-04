@@ -2,6 +2,7 @@ package cz.prf.uai.tomsovsky.chat.service;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +47,7 @@ public class ChatMessageService {
 	
 	@Transactional
 	public ChatMessage saveChatMessage(ChatMessage chatMessage) {
+		chatMessage.setSentOn(new DateTime());
 		Long chatMessageId = chatMessageDao.save(chatMessage);
 		return chatMessageDao.getById(chatMessageId);
 	}

@@ -1,0 +1,11 @@
+.p-message {
+	text-align: justify;
+}
+
+.span-message-meta {
+	font-size: 0.8em;
+}
+
+textarea {
+	height: auto;
+}

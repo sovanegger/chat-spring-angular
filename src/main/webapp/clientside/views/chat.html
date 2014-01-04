@@ -1,5 +1,30 @@
 <div class="row">
 	<div class="small-12 large-12 columns">
-		Chat for room {{roomId}}
+		<h2>Chat for room {{room.name}}</h2>
+		<div class="row">
+			<div class="small-8 small-centered large-4 large-centered columns">
+				<form name="chatMessageForm" class="css-form" novalidate>
+					<textarea id="chatMessageTextarea" ng-model="chatMessage.messageText" rows="5"></textarea>
+					<button class="button small radius right" ng-click="send(chatMessage)">ODESLAT</button>				
+				</form>					
+			</div>				
+		</div>
+		<div class="row" ng-repeat="chatMessage in chatMessages">
+			<div class="small-8 small-centered large-4 large-centered columns">
+				<div class="row">
+					<div class="small-2 large-4 columns">
+						<span class="span-message-meta">{{chatMessage.username}}</span>						
+					</div>
+					<div class="small-10 large-8 columns">
+						<span class="span-message-meta">{{chatMessage.sentOn}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="small-12 large-12 columns">
+						<p class="p-message">{{chatMessage.messageText}}</p>
+					</div>
+				</div>				
+			</div>
+		</div>		
 	</div>
 </div>
