@@ -7,8 +7,12 @@ chatApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: 'clientside/views/rooms.html',
-				controller: 'RoomListController' 
+				templateUrl: 'clientside/views/login.html',
+				controller: 'LoginFormController' 
+			}).
+			when('/login', {
+				templateUrl: 'clientside/views/login.html',
+				controller: 'LoginFormController'
 			}).
 			when('/rooms', {
 				templateUrl: 'clientside/views/rooms.html',
@@ -23,7 +27,7 @@ chatApp.config(['$routeProvider',
 				controller: 'ChatController'
 			}).
 			otherwise({
-				redirectTo: '/rooms'
+				redirectTo: '/login'
 			});
 	}
 ]);

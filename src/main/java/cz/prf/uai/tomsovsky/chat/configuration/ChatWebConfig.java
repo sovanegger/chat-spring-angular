@@ -7,11 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
@@ -43,11 +41,12 @@ public class ChatWebConfig extends WebMvcConfigurerAdapter {
 					setCachePeriod(31556926);
 	}
 	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setPrefix("/clientside/");
-		viewResolver.setSuffix(".html");
-		return viewResolver;
-	}
+//	@Bean
+//	public ViewResolver viewResolver() {
+//		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//		viewResolver.setPrefix("/clientside/");
+//		viewResolver.setContentType("text/html;charset=UTF-8");
+//		viewResolver.setSuffix(".html");
+//		return viewResolver;
+//	}
 }
