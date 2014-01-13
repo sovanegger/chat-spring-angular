@@ -22,9 +22,9 @@ function user($rootScope) {
 function roomsLoading($interval) {
 	var intervalPromise = null;
 	
-	var start = function(roomId, callback) {
+	var start = function(roomId, limit, callback) {
 		intervalPromise = $interval(function(){
-			callback(roomId);
+			callback(roomId, limit);
 		}, 1000);
 	};
 	

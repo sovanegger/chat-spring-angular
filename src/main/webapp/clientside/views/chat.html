@@ -1,18 +1,19 @@
 <div class="row">
 	<div class="small-12 large-12 columns">
-		<h2>Chat for room {{room.name}}</h2>
+		<h2>Chat místnosti {{room.name}}</h2>
 		<div class="row">
 			<div class="small-12 small-centered large-8 large-centered columns">
 				<form name="chatMessageForm" class="css-form" novalidate>
-					<textarea id="chatMessageTextarea" ng-model="chatMessage.messageText" rows="5"></textarea>
-					<button class="button small radius right" ng-click="send(chatMessage)">ODESLAT</button>				
+					<textarea ng-model="chatMessage.messageText" rows="5" class="error" name="messageTextTextarea" required></textarea>
+					<small class="error" ng-show="chatMessageForm.messageTextTextarea.$error.required">Zpráva nesmí být prázdná</small>
+					<br ng-show="!chatMessageForm.messageTextTextarea.$error.required" />
+					<button class="button small radius right" ng-disabled="!chatMessageForm.$valid" ng-click="send(chatMessage)">ODESLAT</button>				
 				</form>					
 			</div>				
 		</div>
 		<br />
 		<div class="row" ng-repeat="chatMessage in chatMessages">
 			<div class="small-12 small-centered large-8 large-centered columns">
-				<hr />
 				<div class="row">
 					<div class="small-4 large-6 columns">
 						<span class="span-message-meta">{{chatMessage.username}}</span>						
@@ -25,8 +26,15 @@
 					<div class="small-12 large-12 columns">
 						<p class="p-message">{{chatMessage.messageText}}</p>
 					</div>
-				</div>				
+				</div>
+				<hr />				
 			</div>
-		</div>		
+		</div>
+		<div class="row" ng-show="nextLink">
+			<div class="small-12 small-centered large-1 large-centered columns">
+				<a ng-click="next(10)">Další</a>
+			</div>
+		</div>
+		<br />		
 	</div>
 </div>
