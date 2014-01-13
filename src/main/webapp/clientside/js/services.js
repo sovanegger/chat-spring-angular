@@ -19,6 +19,27 @@ function user($rootScope) {
     };
 }
 
+function roomsLoading($interval) {
+	var intervalPromise = null;
+	
+	var start = function(roomId, callback) {
+		intervalPromise = $interval(function(){
+			callback(roomId);
+		}, 1000);
+	};
+	
+	var stop = function() {
+		if (intervalPromise)
+			$interval.cancel(intervalPromise);
+	};
+	
+	return {
+		intervalPromise: intervalPromise,
+		start: start,
+		stop: stop
+	};
+}
+
 function routeAuth($rootScope, $location) {
 	$rootScope.$on('$routeChangeStart', function(event, current, next) { 
 		if (!localStorage.username)
@@ -27,4 +48,5 @@ function routeAuth($rootScope, $location) {
 }
 
 chatApp.service('user', ['$rootScope', user]);
+chatApp.service('roomsLoading', ['$interval', roomsLoading]);
 chatApp.service('routeAuth', ['$rootScope', '$location', routeAuth]);

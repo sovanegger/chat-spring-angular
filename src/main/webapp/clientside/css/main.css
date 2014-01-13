@@ -1,5 +1,11 @@
+footer p
+{
+    font-size: 0.8em;
+}
+
 .p-message {
 	text-align: justify;
+	margin-bottom: 0;
 }
 
 .span-message-meta {

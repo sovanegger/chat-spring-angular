@@ -1,12 +1,17 @@
 <div class="row">
-	<div class="small-8 small-centered large-4 large-centered columns">
-		<form name="loginForm" class="css-form" novalidate>
-			<label class="error" ng-show="loginForm.usernameInput.$invalid">Chyba</label>
-			Uživatelské jméno:
-			<input type="text" ng-model="username" class="error" name="usernameInput" required />
-			<small class="error" ng-show="loginForm.usernameInput.$error.required">Uživatelské jméno musí být vyplněno</small>
-			<br />
-			<button class="button small radius right" ng-click="login(username)">PŘIHLÁSIT SE</button>			
-		</form>			
+  	<div class="small-12 large-12 columns">
+  		<h2>Přihlášení</h2>
+		<div class="row">
+			<div class="small-8 small-centered large-4 large-centered columns">
+				<form name="loginForm" class="css-form" novalidate>
+					<label class="error" ng-show="loginForm.usernameInput.$invalid">Chyba</label>
+					Uživatelské jméno:
+					<input type="text" ng-model="username" class="error" name="usernameInput" required />
+					<small class="error" ng-show="loginForm.usernameInput.$error.required">Uživatelské jméno musí být vyplněno</small>
+					<br />
+					<button class="button small radius right" ng-click="login(username)">PŘIHLÁSIT SE</button>			
+				</form>			
+			</div>	
+		</div>
 	</div>	
 </div>

@@ -11,13 +11,21 @@ function NavController($scope, $location, user) {
 	};
 }
 
+function FooterController($scope, user) {
+	$scope.username = user.username;
+	
+	$scope.$on('user.update', function (event, newUsername) {
+		$scope.username = newUsername;
+    });
+}
+
 function RoomListController($scope, $http, $location) {
 	$http.get(APP_NAME+'/rooms').success(function(data) {
 		$scope.rooms = data;
 	});
 }
 
-function ChatController($scope, $http, $routeParams, $location, user) {
+function ChatController($scope, $http, $routeParams, $location, roomsLoading, user) {
 	var resetAllMessages = function(roomId, limit) {
 		var url = APP_NAME+'/chatmessages?roomId='+roomId;
 		if (limit)
@@ -28,7 +36,7 @@ function ChatController($scope, $http, $routeParams, $location, user) {
 	};
 	
 	$scope.send = function(chatMessage) {
-		chatMessage.username = localStorage.username;
+		chatMessage.username = user.username;
 		chatMessage.room = $scope.room;
 		$http.post(APP_NAME+'/chatmessages', chatMessage).success(function(data) {
 			resetAllMessages(chatMessage.room.id);
@@ -37,11 +45,15 @@ function ChatController($scope, $http, $routeParams, $location, user) {
 		});
 	};
 	
-	var roomId = $routeParams.roomId;
-	resetAllMessages(roomId);
-	$http.get(APP_NAME+'/rooms/'+roomId).success(function(data) {
-		$scope.room = data;
-	}); 
+	if ($routeParams.roomId) {
+		var roomIdParam = $routeParams.roomId;
+		resetAllMessages(roomIdParam);
+		roomsLoading.stop();
+		roomsLoading.start(roomIdParam, resetAllMessages);
+		$http.get(APP_NAME+'/rooms/'+roomIdParam).success(function(data) {
+			$scope.room = data;
+		});
+	}
 }
 
 function LoginFormController($scope, $http, $location, user) {
@@ -57,11 +69,10 @@ function LoginFormController($scope, $http, $location, user) {
 		else
 			alert('Prohlížeč nepodporuje tuto aplikaci');
 	};
-	if (user.username)
-		$location.path('/rooms').replace();
 }
 
 chatApp.controller('NavController', ['$scope', '$location', 'user', NavController]);
+chatApp.controller('FooterController', ['$scope', 'user', FooterController]);
 chatApp.controller('RoomListController', ['$scope', '$http', '$location', RoomListController]);
-chatApp.controller('ChatController', ['$scope', '$http', '$routeParams', '$location', 'user', ChatController]);
+chatApp.controller('ChatController', ['$scope', '$http', '$routeParams', '$location', 'roomsLoading', 'user', ChatController]);
 chatApp.controller('LoginFormController', ['$scope', '$http', '$location', 'user', LoginFormController]);

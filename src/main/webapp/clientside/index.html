@@ -3,7 +3,7 @@
 <head>    
 	<meta charset="UTF-8" />    
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-	<title>Chat</title>    
+	<title>Star Wars Chat</title>    
 	<link rel="stylesheet" href="clientside/lib/foundation-ui-framework/css/foundation.css" />    
 	<link rel="stylesheet" href="clientside/css/main.css" />    
 	<script src="clientside/lib/foundation-ui-framework/js/modernizr.js"></script>    
@@ -19,10 +19,18 @@
 		<nav class="top-bar" ng-controller="NavController" data-topbar>  		
 			<ul class="title-area">  			
 				<li class="name">  				
-					<h1><a href="#/">MŮJ CHAT</a></h1>  			
-				</li>  	
+					<h1><a href="#/">STAR WARS CHAT</a></h1>  			
+				</li>
+				<li class="toggle-topbar"><a href="#">Menu</a></li>  	
 			</ul>
-			<section class="top-bar-section">  			
+			<section class="top-bar-section">		
+				<ul class="left">
+					<li class="divider"></li>	
+					<li ng-show="username">
+						<a href="#/rooms">Místnosti</a>
+					</li>  			
+					<li ng-show="username" class="divider"></li>
+				</ul>
 				<ul class="right">
 					<li ng-show="username" class="divider"></li>
 					<li ng-show="username">
@@ -32,19 +40,29 @@
 					<li ng-show="username">
 						<a ng-click="logout()">Odhlásit se</a>
 					</li>  			
-				</ul>  			
-				<ul class="left">
-					<li class="divider"></li>	
-					<li ng-show="username">
-						<a href="#/rooms">Místnosti</a>
-					</li>  			
-					<li ng-show="username" class="divider"></li>
 				</ul>  		
 			</section>  	
 		</nav>  	
 	</div>
 	<br />
 	<div ng-view></div>
+	
+	<footer class="row" ng-controller="FooterController">
+        <div class="large-12 columns">
+            <hr />
+            <div class="row">
+                <div class="large-6 columns">
+                    <p>© Copyright MT.</p>
+                </div>
+                <div class="large-6 columns">
+                    <ul class="inline-list right">
+                        <li><a href="#/">Hlavní stránka</a></li>
+                        <li ng-show="username"><a href="#/rooms">Místnosti</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 	     	   	
 	<script src="clientside/lib/foundation-ui-framework/js/jquery.js"></script>     
 	<script src="clientside/lib/foundation-ui-framework/js/foundation.min.js"></script>     
