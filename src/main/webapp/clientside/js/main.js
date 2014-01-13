@@ -9,16 +9,3 @@ var hasStorage = (function() {
 	else
 		return false;
 })();
-
-var redirectToLoginPageWhenNoUser = function(location) {
-	if (!localStorage.username)
-		location.path(LOGIN_PAGE_URL).replace();
-};
-
-var setCSSDisplayOnElementsByClass = function (className, state) {
-	var elements = document.getElementsByClassName(className);
-	
-	for (var i = 0; i < elements.length; i++) {
-		elements[i].style.display = state;
-	}
-}; 

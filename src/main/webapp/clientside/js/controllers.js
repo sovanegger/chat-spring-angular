@@ -1,26 +1,23 @@
-function NavController($scope, $location) {
-	if (localStorage.username)
-		setCSSDisplayOnElementsByClass('need-authenticated-user', 'inline');
-	else
-		setCSSDisplayOnElementsByClass('need-authenticated-user', 'none');
-
+function NavController($scope, $location, user) {
+	$scope.username = user.username;
+	
+	$scope.$on('user.update', function (event, newUsername) {
+		$scope.username = newUsername;
+    });
+	
 	$scope.logout = function() {
-		if (localStorage.username)
-			localStorage.removeItem('username');
+		user.update(null);
 		$location.path(LOGIN_PAGE_URL).replace();
-		setCSSDisplayOnElementsByClass('need-authenticated-user', 'none');
 	};
 }
 
 function RoomListController($scope, $http, $location) {
-	redirectToLoginPageWhenNoUser($location);
 	$http.get(APP_NAME+'/rooms').success(function(data) {
 		$scope.rooms = data;
 	});
 }
 
-function ChatController($scope, $http, $routeParams, $location) {
-	redirectToLoginPageWhenNoUser($location);
+function ChatController($scope, $http, $routeParams, $location, user) {
 	var resetAllMessages = function(roomId, limit) {
 		var url = APP_NAME+'/chatmessages?roomId='+roomId;
 		if (limit)
@@ -31,7 +28,6 @@ function ChatController($scope, $http, $routeParams, $location) {
 	};
 	
 	$scope.send = function(chatMessage) {
-		redirectToLoginPageWhenNoUser($location);
 		chatMessage.username = localStorage.username;
 		chatMessage.room = $scope.room;
 		$http.post(APP_NAME+'/chatmessages', chatMessage).success(function(data) {
@@ -48,25 +44,24 @@ function ChatController($scope, $http, $routeParams, $location) {
 	}); 
 }
 
-function LoginFormController($scope, $http, $location) {
+function LoginFormController($scope, $http, $location, user) {
 	$scope.login = function(username) {
 		if (hasStorage) {
 			if (!username)
 				alert('Nezadali jste uživatelské jméno');
 			else {
-				localStorage.username = username;
+				user.update(username);
 				$location.path('/rooms').replace();
-				setCSSDisplayOnElementsByClass('need-authenticated-user', 'inline');
 			}
 		}
 		else
 			alert('Prohlížeč nepodporuje tuto aplikaci');
 	};
-	if (localStorage.username)
+	if (user.username)
 		$location.path('/rooms').replace();
 }
 
-chatApp.controller('NavController', ['$scope', '$location', NavController]);
+chatApp.controller('NavController', ['$scope', '$location', 'user', NavController]);
 chatApp.controller('RoomListController', ['$scope', '$http', '$location', RoomListController]);
-chatApp.controller('ChatController', ['$scope', '$http', '$routeParams', '$location', ChatController]);
-chatApp.controller('LoginFormController', ['$scope', '$http', '$location', LoginFormController]);
+chatApp.controller('ChatController', ['$scope', '$http', '$routeParams', '$location', 'user', ChatController]);
+chatApp.controller('LoginFormController', ['$scope', '$http', '$location', 'user', LoginFormController]);

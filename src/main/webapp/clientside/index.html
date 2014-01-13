@@ -10,8 +10,9 @@
 	<script src="clientside/lib/angular/angular.js"></script>    
 	<script src="clientside/lib/angular/angular-route.min.js"></script>    
 	<script src="clientside/js/main.js"></script>    
-	<script src="clientside/js/app.js"></script>    
-	<script src="clientside/js/controllers.js"></script>  
+	<script src="clientside/js/app.js"></script>
+	<script src="clientside/js/controllers.js"></script>
+	<script src="clientside/js/services.js"></script>  
 </head>  
 <body>
 	<div class="fixed">  	
@@ -23,16 +24,21 @@
 			</ul>
 			<section class="top-bar-section">  			
 				<ul class="right">
-					<li class="need-authenticated-user divider"></li>  				
-					<li class="need-authenticated-user">
+					<li ng-show="username" class="divider"></li>
+					<li ng-show="username">
+						<span class="top-bar-item">{{username}}</span>
+					</li>
+					<li class="divider"></li>			
+					<li ng-show="username">
 						<a ng-click="logout()">Odhlásit se</a>
 					</li>  			
 				</ul>  			
 				<ul class="left">
-					<li class="need-authenticated-user divider"></li>	
-					<li class="need-authenticated-user">
+					<li class="divider"></li>	
+					<li ng-show="username">
 						<a href="#/rooms">Místnosti</a>
 					</li>  			
+					<li ng-show="username" class="divider"></li>
 				</ul>  		
 			</section>  	
 		</nav>  	

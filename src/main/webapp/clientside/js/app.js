@@ -1,6 +1,5 @@
 var chatApp = angular.module('chatApp', [
-	'ngRoute',
-	'chatAppControllers'
+	'ngRoute'
 ]);
 
 chatApp.config(['$routeProvider',
@@ -31,3 +30,16 @@ chatApp.config(['$routeProvider',
 			});
 	}
 ]);
+chatApp.run(['$rootScope', '$location', function($rootScope, $location) {
+	$rootScope.$on('$routeChangeStart', function(event, next, current) { 
+		if (next) {
+			var nextRoute = next.originalPath;
+			if (!localStorage.username) {
+				if (nextRoute !== '/login')
+					$location.path(LOGIN_PAGE_URL).replace();
+			}
+			else if (nextRoute === '/login')
+				$location.path('/rooms').replace();
+		};
+	 });
+}]);
